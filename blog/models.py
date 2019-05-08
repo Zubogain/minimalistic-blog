@@ -3,11 +3,14 @@ from django.db.models import F
 from django.urls import reverse
 
 # Create your models here.
+
+
 class Category(models.Model):
     catName = models.CharField(max_length=50, help_text='Название категории')
 
     def __str__(self):
         return self.catName
+
 
 class ArticleManager(models.Manager):
     def update_count_views(self, pk):

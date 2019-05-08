@@ -4,10 +4,12 @@ from .models import Category, Article
 # Register your models here.
 admin.site.site_header = 'Блог IT-Минималиста'
 
+
 @admin.register(Category)
 class CategoriesAdmin(admin.ModelAdmin):
     list_display = ('catName', 'id')
     model = Category
+
 
 @admin.register(Article)
 class ArticlesAdmin(admin.ModelAdmin):
