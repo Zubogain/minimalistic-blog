@@ -1,0 +1,28 @@
+<header id="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="header__top__logo">
+                <h1>Блог IT_Минималиста</h1>
+            </div>
+            <nav class="header__top__menu">
+                <ul>
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="#">Обо мне</a></li>
+                    <li><a href="https://vk.com/zubogain">Я Вконтакте</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="header__bottom">
+        <div class="container">
+            <nav>
+                <ul>
+                    {% for cat in categories %}
+                        <li><a href="{% url 'category-articles' cat.id %}">{{ cat }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

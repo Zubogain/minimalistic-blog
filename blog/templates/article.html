@@ -1,0 +1,10 @@
+{% extends 'base/base_generic.html' %}
+
+{% block title %}
+    <title>{{ article.title }}</title>
+{% endblock %}
+
+{% block content %}
+    {% include 'pages/article.html' %}
+    {% include 'base/side_bars.html' %}
+{% endblock %}

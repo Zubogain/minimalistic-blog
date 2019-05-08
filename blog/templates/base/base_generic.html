@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    {% endblock %}
+
+    {% load static %}
+    <!-- Bootstrap Grid -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap-grid-only/css/grid12.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    <!-- Custom -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+{% include 'base/header.html' %}
+<div id="wrapper">
+
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'base/footer.html' %}
+</body>
+</html>

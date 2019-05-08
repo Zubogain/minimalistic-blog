@@ -1,0 +1,10 @@
+{% extends 'base/base_generic.html' %}
+
+{% block title %}
+    <title>Список статей: {{ catName }}</title>
+{% endblock %}
+
+{% block content %}
+    {% include 'pages/article_list.html' %}
+    {% include 'base/side_bars.html' %}
+{% endblock %}
