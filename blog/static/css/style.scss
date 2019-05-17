@@ -87,6 +87,10 @@ body {
   .block__content {
     padding-top: 40px;
   }
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .articles {
