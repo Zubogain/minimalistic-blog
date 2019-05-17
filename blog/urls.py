@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^article/(?P<pk>\d+)$', views.ArticleDetailView.as_view(), name='article-detail'),
     url(r'^articles/(?P<catId>\d+)$', views.CategoryArticlesView.as_view(), name='category-articles'),
     url(r'^articles/all$', views.AllArticles.as_view(), name='all-articles'),
+    url(r'article/(?P<pk>\d+)/comment/save$', views.CommentSaveView.as_view(), name='comment-save')
 ]

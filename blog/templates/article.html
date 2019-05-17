@@ -1,10 +1,11 @@
-{% extends 'base/base_generic.html' %}
+{% extends 'base_generic.html' %}
 
 {% block title %}
     <title>{{ article.title }}</title>
 {% endblock %}
 
 {% block content %}
+    {% load static %}
     <section class="content__left col-md-8">
         <div class="block">
             <a>{{ article.count_views }} просмотров</a>
@@ -22,50 +23,21 @@
             <div class="block__content">
                 <div class="articles articles__vertical">
 
-                    <article class="article">
-                        <div class="article__image"
-                             style="background-image: url(https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=125);"></div>
-                        <div class="article__info">
-                            <a href="#">Артём aka Snake</a>
-                            <div class="article__info__meta">
-                                <small>10 минут назад</small>
+                    {% for comment in comments %}
+                        <article class="article">
+                            <div class="article__image"
+                                 style="background-image: url({% static '/images/no-photo.png' %});"></div>
+                            <div class="article__info">
+                                <a href="#">{{ comment.nickname }} aka {{ comment.name }}</a>
+                                <div class="article__info__meta">
+                                    <small>{{ comment.date_of_create }}</small>
+                                </div>
+                                <div class="article__info__preview">
+                                    {{ comment.text }}
+                                </div>
                             </div>
-                            <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna ...
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="article">
-                        <div class="article__image"
-                             style="background-image: url(https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=125);"></div>
-                        <div class="article__info">
-                            <a href="#">Виталий aka Umka</a>
-                            <div class="article__info__meta">
-                                <small>7 дней назад</small>
-                            </div>
-                            <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna ...
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="article">
-                        <div class="article__image"
-                             style="background-image: url(https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=125);"></div>
-                        <div class="article__info">
-                            <a href="#">Олег aka SnakeEye</a>
-                            <div class="article__info__meta">
-                                <small>1.1.1970</small>
-                            </div>
-                            <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna ...
-                            </div>
-                        </div>
-                    </article>
+                        </article>
+                    {% endfor %}
 
                 </div>
             </div>
@@ -74,22 +46,20 @@
         <div class="block" id="comment-add-form">
             <h3>Добавить комментарий</h3>
             <div class="block__content">
-                <form class="form">
+                <form class="form" method="POST" action="{% url 'comment-save' article.id %}">
+                    {% csrf_token %}
                     <div class="form__group">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" class="form__control" required="" name="name"
-                                       placeholder="Имя">
+                                {{ form.name }}
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form__control" required="" name="nickname"
-                                       placeholder="Никнейм">
+                                {{ form.nickname }}
                             </div>
                         </div>
                     </div>
                     <div class="form__group">
-                                        <textarea name="text" required="" class="form__control"
-                                                  placeholder="Текст комментария ..."></textarea>
+                        {{ form.text }}
                     </div>
                     <div class="form__group">
                         <input type="submit" class="form__control" name="do_post"

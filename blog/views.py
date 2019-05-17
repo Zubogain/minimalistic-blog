@@ -1,8 +1,8 @@
-from django.shortcuts import render
-
 # Create your views here.
 from django.views import generic
-from .models import Article, Category
+from .models import *
+from .forms import *
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -11,11 +11,13 @@ from .models import Article, Category
 class BaseTemplateMixin(generic.base.ContextMixin):
     top_read_articles = Article.objects.all().order_by('-count_views')[:5]
     categories = Category.objects.all()
+    last_comments = Comment.objects.all().order_by('-date_of_create')[:5]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = self.categories
         context['top_read_articles'] = self.top_read_articles
+        context['last_comments'] = self.last_comments
         return context
 
 
@@ -35,6 +37,9 @@ class ArticleDetailView(BaseTemplateMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['comments'] = self.model.objects.get(pk=self.kwargs['pk']).comment_set.all().order_by(
+            'date_of_create')
+        context['form'] = CommentForm
         self.model.objects.update_count_views(self.kwargs['pk'])
         return context
 
@@ -61,3 +66,19 @@ class AllArticles(BaseTemplateMixin, generic.ListView):
         context['selected_articles'] = self.model.objects.all().order_by(
             '-date_of_create')
         return context
+
+
+class CommentSaveView(generic.FormView):
+    form_class = CommentForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        if self.request.method == 'POST':
+            data = form.data
+            article_id = self.kwargs['pk']
+            Comment.objects.create_comment(name=data['name'], nickname=data['nickname'], text=data['text'],
+                                           article_id=article_id)
+        return redirect('article-detail', self.kwargs['pk'])
+
+    def form_invalid(self, form):
+        return redirect('/')

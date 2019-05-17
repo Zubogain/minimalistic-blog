@@ -125,3 +125,5 @@ TINY_MCE = (
     '/static/tiny_mce/tiny_mce.js',
     '/static/tiny_mce/tiny_mce_init.js',
 )
+
+LOGIN_REDIRECT_URL = '/'

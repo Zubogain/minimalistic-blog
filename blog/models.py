@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import F
 from django.urls import reverse
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Category(models.Model):
@@ -34,3 +36,19 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article-detail', args=[str(self.id)])
+
+
+class CommentManager(models.Manager):
+    def create_comment(self, name, nickname, text, article_id):
+        return self.create(name=name, nickname=nickname, text=text, article_id=article_id)
+
+
+class Comment(models.Model):
+    name = models.CharField(max_length=20, help_text='Имя')
+    nickname = models.CharField(max_length=20, help_text='Никнейм')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, help_text='статья')
+    text = models.TextField(max_length=1000, help_text='Текст')
+    date_of_create = models.DateTimeField(auto_now_add=True, null=True, help_text='Дата создания', editable=False)
+    date_of_edit = models.DateTimeField(auto_now=True, null=True, help_text='Дата последнего редактирования',
+                                        editable=False)
+    objects = CommentManager()

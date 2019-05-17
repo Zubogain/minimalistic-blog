@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-{% include 'base/header.html' %}
+{% include 'header.html' %}
 <div id="wrapper">
 
     <div id="content">
@@ -25,11 +25,11 @@
             <div class="row">
                 {% block content %}
                 {% endblock %}
-                {% include 'base/side_bars.html' %}
+                {% include 'side_bars.html' %}
             </div>
         </div>
     </div>
 </div>
-{% include 'base/footer.html' %}
+{% include 'footer.html' %}
 </body>
 </html>

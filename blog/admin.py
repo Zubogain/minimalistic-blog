@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Article
+from .models import *
 from django.conf import settings
 
 # Register your models here.
@@ -19,3 +19,9 @@ class ArticlesAdmin(admin.ModelAdmin):
 
     class Media:
         js = settings.TINY_MCE
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('nickname', 'article', 'text', 'date_of_create', 'date_of_edit')
+    model = Comment
