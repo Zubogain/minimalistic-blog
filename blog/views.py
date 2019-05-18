@@ -9,25 +9,20 @@ from django.shortcuts import redirect
 
 
 class BaseTemplateMixin(generic.base.ContextMixin):
-    top_read_articles = Article.objects.all().order_by('-count_views')[:5]
-    categories = Category.objects.all()
-    last_comments = Comment.objects.all().order_by('-date_of_create')[:5]
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = self.categories
-        context['top_read_articles'] = self.top_read_articles
-        context['last_comments'] = self.last_comments
+        context['categories'] = Category.objects.all()
+        context['top_read_articles'] = Article.objects.all().order_by('-count_views')[:5]
+        context['last_comments'] = Comment.objects.all().order_by('-date_of_create')[:5]
         return context
 
 
 class index(BaseTemplateMixin, generic.TemplateView):
-    last_four_all_articles = Article.objects.all().order_by('-date_of_create')[:4]
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['last_four_all_articles'] = self.last_four_all_articles
+        context['last_four_all_articles'] = Article.objects.all().order_by('-date_of_create')[:4]
         return context
 
 
@@ -47,6 +42,7 @@ class ArticleDetailView(BaseTemplateMixin, generic.DetailView):
 class CategoryArticlesView(BaseTemplateMixin, generic.ListView):
     model = Category
     template_name = 'article_list.html'
+    allow_empty = False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,6 +55,7 @@ class CategoryArticlesView(BaseTemplateMixin, generic.ListView):
 class AllArticles(BaseTemplateMixin, generic.ListView):
     model = Article
     template_name = 'article_list.html'
+    allow_empty = False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
