@@ -15,7 +15,7 @@
             <div class="articles articles__vertical">
                 {% for article in top_read_articles %}
                     <article class="article">
-                        <div class="article__image" style="background-image: url({{ article.title_image.url }});"></div>
+                        <div class="article__image" style="background-image: url({{ article.title_image_b64 }});"></div>
                         <div class="article__info">
                             <a href="{% url 'article-detail' article.id %}">{{ article.title|truncatechars:25 }}</a>
                             <div class="article__info__meta">
@@ -38,12 +38,12 @@
                 {% for comment in last_comments %}
                     <article class="article">
                         <div class="article__image"
-                             style="background-image: url({{ comment.article.title_image.url }});"></div>
+                             style="background-image: url({{ comment.article.title_image_b64 }});"></div>
                         <div class="article__info">
                             <a href="#">{{ comment.nickname }}</a>
                             <div class="article__info__meta">
                                 <small><a
-                                        href="{% url 'article-detail' comment.article.id %}">{{ comment.article.title }}</a>
+                                        href="{% url 'article-detail' comment.article.id %}">{{ comment.article.title|truncatechars:25 }}</a>
                                 </small>
                             </div>
                             <div class="article__info__preview">

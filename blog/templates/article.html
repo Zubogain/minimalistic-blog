@@ -11,7 +11,7 @@
             <a>{{ article.count_views }} просмотров</a>
             <h3>{{ article.title }}</h3>
             <div class="block__content">
-                <img src="{{ article.title_image.url }}">
+                <img src="{{ article.title_image_b64 }}">
 
                 <div class="full-text">{{ article.description|safe }}</div>
             </div>

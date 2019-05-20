@@ -127,3 +127,5 @@ TINY_MCE = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+
+DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'

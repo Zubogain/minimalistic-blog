@@ -22,7 +22,7 @@ class index(BaseTemplateMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['last_four_all_articles'] = Article.objects.all().order_by('-date_of_create')[:4]
+        context['latest_articles'] = Article.objects.all().order_by('-date_of_create')[:16]
         return context
 
 

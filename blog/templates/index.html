@@ -11,10 +11,10 @@
             <h3>Новейшее_в_блоге</h3>
             <div class="block__content">
                 <div class="articles articles__horizontal">
-                    {% for article in last_four_all_articles %}
+                    {% for article in latest_articles %}
                         <article class="article">
                             <div class="article__image"
-                                 style="background-image: url({{ article.title_image.url }});"></div>
+                                 style="background-image: url({{ article.title_image_b64 }});"></div>
                             <div class="article__info">
                                 <a href="{% url 'article-detail' article.pk %}">{{ article.title|truncatechars:25 }}</a>
                                 <div class="article__info__meta">
